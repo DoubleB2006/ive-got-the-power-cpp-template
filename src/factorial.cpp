@@ -1,35 +1,28 @@
-#include <cstdint>
+#include "factorial.hpp"
 
-// 1) Naive recursion: x^n = x * x^(n-1)
-long long naivePower(int x, int n) {
-    if (x == 0) return 0;
+// 0^0 -> 1 here (because n==0 returns 1). 0^n -> 0 for n>0.
+
+u64 naivePower(u64 x, int n) {
     if (n == 0) return 1;
-    return static_cast<long long>(x) * naivePower(x, n - 1);
+    if (x == 0) return 0;
+    return x * naivePower(x, n - 1);
 }
 
-// 2) Divide & Conquer (UNOPTIMIZED):
-//    Recursively compute x^(n/2) twice (intentionally redundant).
-long long unoptimizedDCPower(int x, int n) {
-    if (x == 0) return 0;
+// intentionally dumb (recomputes the half twice)
+u64 unoptimizedDCPower(u64 x, int n) {
     if (n == 0) return 1;
-    if (n % 2 == 0) {
-        return unoptimizedDCPower(x, n / 2) * unoptimizedDCPower(x, n / 2);
+    if (x == 0) return 0;
+    if ((n & 1) == 0) {
+        return unoptimizedDCPower(x, n/2) * unoptimizedDCPower(x, n/2);
     } else {
-        return static_cast<long long>(x)
-             * unoptimizedDCPower(x, n / 2)
-             * unoptimizedDCPower(x, n / 2);
+        return x * unoptimizedDCPower(x, n/2) * unoptimizedDCPower(x, n/2);
     }
 }
 
-// 3) Divide & Conquer (OPTIMIZED):
-//    Reuse the half-power result to avoid duplicate work.
-long long optimizedDCPower(int x, int n) {
-    if (x == 0) return 0;
+// exponentiation by squaring
+u64 optimizedDCPower(u64 x, int n) {
     if (n == 0) return 1;
-    long long temp = optimizedDCPower(x, n / 2);
-    if (n % 2 == 0) {
-        return temp * temp;
-    } else {
-        return static_cast<long long>(x) * temp * temp;
-    }
+    if (x == 0) return 0;
+    u64 t = optimizedDCPower(x, n/2);
+    return (n % 2 == 0) ? (t * t) : (x * t * t);
 }

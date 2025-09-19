@@ -2,30 +2,21 @@
 #include <catch2/benchmark/catch_benchmark.hpp>
 #include "../src/factorial.hpp"
 
-#include "../src/factorial.hpp"
-
-TEST_CASE( "it computes the factorial of different numbers" ) {
-    REQUIRE( factorial(0) == 1 );
-    REQUIRE( factorial(1) == 1 );
-    REQUIRE( factorial(2) == 2 );
-    REQUIRE( factorial(3) == 6 );
-    REQUIRE( factorial(10) == 3628800 );
+// quick sanity
+TEST_CASE("power sanity") {
+    REQUIRE( naivePower(2,10) == 1024 );
+    REQUIRE( optimizedDCPower(3,5) == 243 );
+    REQUIRE( naivePower(5,7) == unoptimizedDCPower(5,7) );
+    REQUIRE( naivePower(5,7) == optimizedDCPower(5,7) );
 }
 
-TEST_CASE("benchmarking the factorial function") {
-    BENCHMARK("factorial(20)") {
-        return factorial(20);
-    };
+// same vibe as your factorial BENCHMARKs
+TEST_CASE("benchmarking the power functions") {
+    BENCHMARK("naive        2^30") { return naivePower(2,30); };
+    BENCHMARK("unoptimized  2^30") { return unoptimizedDCPower(2,30); };
+    BENCHMARK("optimized    2^30") { return optimizedDCPower(2,30); };
 
-    BENCHMARK("factorial(25)") {
-        return factorial(25);
-    };
-
-    BENCHMARK("factorial(30)") {
-        return factorial(30);
-    };
-
-    BENCHMARK("factorial(35)") {
-        return factorial(35);
-    };
+    BENCHMARK("naive       11^28") { return naivePower(11,28); };
+    BENCHMARK("unoptimized 11^28") { return unoptimizedDCPower(11,28); };
+    BENCHMARK("optimized   11^28") { return optimizedDCPower(11,28); };
 }
