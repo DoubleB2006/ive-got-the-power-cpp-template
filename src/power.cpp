@@ -1,4 +1,4 @@
-#include "factorial.hpp"
+#include "power.hpp"
 
 // 0^0 -> 1 here (because n==0 returns 1). 0^n -> 0 for n>0.
 

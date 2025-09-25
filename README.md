@@ -21,7 +21,10 @@ cmake .. && make
 
 ## Testing the App
 
-Any tests that you define in the `tests/` directory must have a corresponding entry in `CMakeLists.txt`. After you build executables using CMake, you can run the corresponding test files from within the `build/` directory.
+Any tests that you define in the `tests/` directory must have a corresponding entry in `CMakeLists.txt`
+
+
+. After you build executables using CMake, you can run the corresponding test files from within the `build/` directory.
 
 ## Running the App
 

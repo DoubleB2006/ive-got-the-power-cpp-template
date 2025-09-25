@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/benchmark/catch_benchmark.hpp>
-#include "../src/factorial.hpp"
+#include "../src/power.hpp"
 
 // quick sanity
 TEST_CASE("power sanity") {
